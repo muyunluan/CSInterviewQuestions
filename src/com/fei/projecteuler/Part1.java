@@ -244,6 +244,17 @@ public class Part1 {
 		return s;
 	}
 	
+	// Lattice paths
+	// check binomial coefficient
+	public static long q015(int n) {
+		long path = 1;
+		for (int i = 0; i < n; i++) {
+			path *= 2 * n - i;
+			path /= (i+1);
+		}
+		return path;
+	}
+	
 	// Power digit sum
 	public static int q016(int n) {
 		String s = BigInteger.ONE.shiftLeft(n).toString();
@@ -252,6 +263,86 @@ public class Part1 {
 			sum += s.charAt(i) - '0';
 		}
 		return sum;
+	}
+	
+	// Number letter counts
+	private static String[] ONES = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};  // Requires 0 <= n <= 9
+	private static String[] TEENS = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+	private static String[] TENS = {"twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+	
+	private static int tens(int n) {
+		int num = 0;
+		if (n >= 20) {
+			num += TENS[n / 10 - 2].length();
+			if (n % 10 != 0) {
+				num += ONES[n % 10].length();
+			}
+		}
+		else if (n < 10) {
+			num += ONES[n].length();
+		}
+		else {
+			num += TEENS[n % 10].length();
+		}
+		return num;
+	}
+	
+	public static int q017() {
+		int count = 0;
+		for (int i = 1; i <= 1000; i++) {
+			if (i == 1000) {
+				count += 11;//one thousand
+			}
+			else if (i >= 100) {
+				count += (ONES[i / 100].length() + 7);//hundred
+				if (i % 100 != 0) {
+					count += (tens(i % 100) + 3);
+				}
+			}
+			else {
+				count += tens(i);
+			}
+		}
+		return count;
+	}
+	
+	// Counting Sundays
+	public static int q019() {
+		int count = 0;
+		int days = 0;
+		for (int i = 1901; i <= 2000; i++) {
+			for (int j = 1; j <= 12; j++) {
+				if (j == 1 || j == 3 || j == 5 || j == 7 || j == 8 || j == 10 || j == 12 ) {
+					days += 31;
+				}
+				else if (j == 4 || j == 6 || j == 9 || j == 11 ) {
+					days += 30;
+				}
+				else {
+					if (i % 100 == 0) {
+						if (i % 400 == 0) {
+							days += 29;
+						}
+						else {
+							days += 28;
+						}
+					}
+					else {
+						if (i % 4 == 0) {
+							days += 29;
+						}
+						else {
+							days += 28;
+						}
+					}
+				}
+				//find Sundays
+				if (days % 7 == 0) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 	
 	
@@ -375,7 +466,10 @@ public class Part1 {
 		};
 		//System.out.println(q013(NUMBERS));
 		//System.out.println(q014(1000000));
-		System.out.println(q016(1000));
+		//System.out.println(q015(20));
+		//System.out.println(q016(1000));
+		//System.out.println(q017());
+		System.out.println(q019());
 	}
 
 }
