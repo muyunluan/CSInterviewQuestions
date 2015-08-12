@@ -345,6 +345,20 @@ public class Part1 {
 		return count;
 	}
 	
+	// Factorial digit sum
+	public static int q020(int n) {
+		BigInteger t = BigInteger.valueOf(1);
+		for (int i = 1; i <= n; i++) {
+			t = t.multiply(BigInteger.valueOf(i));
+		}
+		System.out.println(t);
+		int sum2 = 0;
+		char[] digits = t.toString().toCharArray();
+		for (char c : digits) {
+			sum2 += c - '0';
+		}
+		return sum2;
+	}
 	
 	/**
 	 * @param args
@@ -469,7 +483,8 @@ public class Part1 {
 		//System.out.println(q015(20));
 		//System.out.println(q016(1000));
 		//System.out.println(q017());
-		System.out.println(q019());
+		//System.out.println(q019());
+		System.out.println(q020(100));
 	}
 
 }
