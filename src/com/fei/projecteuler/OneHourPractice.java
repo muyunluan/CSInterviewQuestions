@@ -98,7 +98,7 @@ public class OneHourPractice {
 		int[] b = {1,2,3,4,5,6,7,8,9};
 		int[] sym = new int[8];
 
-		//0 + 1 - 2 none
+		// there are 3 options "+", "-" and " " for these 8 positions
 		for (sym[0]=0;sym[0]<3;sym[0]++)
 			for (sym[1]=0;sym[1]<3;sym[1]++)
 				for (sym[2]=0;sym[2]<3;sym[2]++)
