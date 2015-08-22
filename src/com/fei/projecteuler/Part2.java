@@ -49,7 +49,7 @@ public class Part2 {
 		return fibonacci(n - 1) + fibonacci(n - 2);
 	}
 	
-	//Distinct powers
+	// Distinct powers
 	public static void q029() {
 		HashSet<BigInteger> dis = new HashSet<BigInteger>();
 		int count = 0;
@@ -65,10 +65,35 @@ public class Part2 {
 		System.out.println(count);
 	}
 	
+	// Digit fifth powers
+	public static void q030() {
+		int num = 0;
+		// As stated in the problem, 1 = 1^5 is excluded.
+		// If a number has at least n >= 7 digits, then even if every digit is 9,
+		// n * 9^5 is still less than the number (which is at least 10^n).
+		for (int i = 2; i < 1000000; i++) {
+			if (i == digitsSum(i)) {
+				num += i;
+			}
+		}
+		System.out.println(num);
+	}
+	
+	public static int digitsSum(int n) {
+		int sum = 0;
+		while(n != 0) {
+			int s = n % 10;
+			sum += Math.pow(s, 5);
+			n = n / 10;
+		}
+		return sum;
+	}
+	
+	//
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		q029();
+		q030();
 	}
 
 }
