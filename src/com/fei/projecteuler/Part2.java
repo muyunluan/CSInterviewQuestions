@@ -5,6 +5,45 @@ import java.util.HashSet;
 
 public class Part2 {
 
+    // Amicable numbers
+    private static boolean isAmicable(int n) {
+        int m = divisorSum(n);
+        return m != n && n == divisorSum(m);
+    }
+    
+    private static int divisorSum(int m) {
+        int sum = 0;
+        for(int i = 1; i < m; i++) {
+            if(m % i == 0) {
+                sum += i;
+            }
+        }
+        return sum;
+    }
+    
+    public static int q021(int n) {
+        int sum = 0;
+        for(int i = 1; i < n; i++) {
+            if(isAmicable(i)) {
+                sum += i;
+            }
+        }
+        return sum;
+    }
+    
+    // Names scores
+    public static int q022(String[] names) {
+        int sum = 0;
+        for (int i = 0; i < names.length; i++) {
+            int v = 0;
+            for (int j = 0; j < names[i].length(); j++) {
+                v += names[i].charAt(j) - 'A' + 1;
+            }
+            sum += v * (i + 1);
+        }
+        return sum;
+    }
+    
 	// Non-abundant sums
 	public static void q023() {
 		

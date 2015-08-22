@@ -49,7 +49,7 @@ public class OneHourPractice {
 	}
 
 	public static void q200(LinkedList<Integer> arr1, LinkedList<Integer> arr2) {
-		LinkedList<Integer> arr = new LinkedList<>();
+		LinkedList<Integer> arr = new LinkedList<Integer>();
 		int i = 0, j = 0;
 		while(i < arr1.size() && j < arr2.size()) {
 			arr.add(arr1.get(i));
