@@ -2,7 +2,8 @@ package com.fei.google;
 
 import java.util.HashSet;
 
-import sun.tools.tree.PreIncExpression;
+import sun.security.krb5.internal.crypto.crc32;
+
 
 public class List {
 
@@ -186,6 +187,71 @@ public class List {
 		return n1;
 	}
 	
+	public static Node deleteMiddleNode(Node n) {
+		int count = 1;
+		Node m = n;
+		Node p = null;
+		Node c = n;
+		while(c.next != null) {
+			count++;
+			if(count % 2 == 0) {
+				p = m;
+				m = m.next;
+			}
+			c = c.next;
+		}
+		p.next = m.next;
+		return n;
+	}
+	
+	public static Node partition(Node n, int x) {
+		Node newHead = new Node(-1);
+		newHead.next = n;
+		Node pre = newHead;
+
+		//find the first node which is larger than x
+		while(pre.next != null && pre.next.value < x) {
+			pre = pre.next;
+		}
+		
+		Node cur = pre;
+		while(cur.next != null) {
+			if(cur.next.value < x) {
+				Node t = cur.next;//save the next node of the target which is less than x
+				cur.next = t.next;//remove target node
+				t.next = pre.next;
+				pre.next = t;
+				pre = pre.next;
+			}
+			else {
+				cur = cur.next;
+			}
+		}
+		return newHead.next;
+	}
+	
+	public static Node partition2(Node n, int k) {
+		Node small = new Node(-1);
+		Node smallHead = small;
+		Node big = new Node(-1);
+		Node bigHead = big;
+		while(n != null) {
+			if(n.value < k) {
+				small.next = n;
+				small = small.next;
+			}
+			else {
+				big.next = n;
+				big = big.next;
+			}
+			n = n.next;
+		}
+		big.next = null;
+		small.next = bigHead.next;
+		return smallHead.next;
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		Node a1 = new Node(0);
@@ -203,7 +269,7 @@ public class List {
 		a6.next = a7;
 		Node a8 = new Node(7);
 		a7.next = a8;
-		System.out.println(a1.printString(a1));
+		System.out.println("a: " + a1.printString(a1));
 
 		Node b1 = new Node(0);
 		Node b2 = new Node(3);
@@ -220,7 +286,7 @@ public class List {
 		b6.next = b7;
 		Node b8 = new Node(11);
 		b7.next = b8;
-		System.out.println(b1.printString(b1));
+		System.out.println("b: " + b1.printString(b1));
 
 		//		Node n = mergeTwoSortedLists(a1,b1);
 		//		System.out.println(n.printString(n));
@@ -244,15 +310,38 @@ public class List {
 		Node c8 = new Node(7);
 		c7.next = c8;
 		c8.next = c4;
-
-		Node n2 = findSourceOfCircularList(c1);
-		System.out.println(n2.name);
+		
+//		Node n2 = findSourceOfCircularList(c1);
+//		System.out.println(n2.name);
 
 //		Node n3 = reverseKthNode(a1, 3);
 //		System.out.println(n3.printString(n3));
 		
-		Node n4 = rearrangeList(a1, b1);
-		System.out.println(n4.printString(n4));
+//		Node n4 = rearrangeList(a1, b1);
+//		System.out.println(n4.printString(n4));
+		
+		Node n5 = deleteMiddleNode(a1);
+		System.out.println(n5.printString(n5));
+		
+		Node d1 = new Node(1);
+		Node d2 = new Node(3);
+		d1.next = d2;
+		Node d3 = new Node(4);
+		d2.next = d3;
+		Node d4 = new Node(2);
+		d3.next = d4;
+		Node d5 = new Node(5);
+		d4.next = d5;
+		Node d6 = new Node(8);
+		d5.next = d6;
+		Node d7 = new Node(6);
+		d6.next = d7;
+		Node d8 = new Node(7);
+		d7.next = d8;
+		System.out.println("d: " + d1.printString(d1));
+		
+		Node n6 = partition(d1, 2);
+		System.out.println(n6.printString(n6));
 	}
 
 }

@@ -17,7 +17,7 @@ public class Node {
 	public String printString(Node n) {
 		String s = "";
 		while(n != null) {
-			s += String.valueOf(n.value);
+			s += String.valueOf(n.value) + " ";
 			n = n.next;
 		}
 		return s;
