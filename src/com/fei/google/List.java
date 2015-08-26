@@ -1,12 +1,16 @@
 package com.fei.google;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.prefs.NodeChangeEvent;
 
 import sun.security.krb5.internal.crypto.crc32;
 
 
 public class List {
 
+	// 1) Merge two sorted lists
 	public static Node mergeTwoSortedLists(Node n1, Node n2) {
 		Node n = new Node(-1);
 		Node m = n;
@@ -32,6 +36,9 @@ public class List {
 		return m.next;
 	}
 
+	// 2) Given two linked lists A and B, 
+	//   return a list C containing the intersection elements of A and B. 
+	//   The nodes of C should appear in the order as in B.
 	public static Node getIntersection(Node n1, Node n2) {
 		Node n = new Node(-1);
 		Node m = n;
@@ -52,6 +59,7 @@ public class List {
 		return m.next;
 	}
 
+	// 3) Given a single list, find the "Mth to the last" element
 	public static Node findMthFromLast(Node n, int m) {
 		int count = 0;
 		Node r = n;
@@ -66,6 +74,7 @@ public class List {
 		return r;
 	}
 
+	// 4) Given a circular linked list, implement an algorithm which returns the node at the beginning of the loop
 	public static Node findSourceOfCircularList(Node n) {
 		Node fast = n;
 		Node slow = n;
@@ -135,6 +144,8 @@ public class List {
 		return current;
 	}
 
+	
+	// 5）Write a routine to reverse every k nodes in a given linked list without using additional memory
 	public static Node reverseKthNode(Node n, int k) {
 		Node head = n,prev = n;
 		int count = 1;
@@ -169,6 +180,8 @@ public class List {
 		return head;
 	}
 	
+	// 7) We have a linked list as a1,a2,a3...an,b1,b2,b3...bn, we need a rearrange method to rearrange the linked list into
+    //    a1,b1,a2,b2...an,bn
 	public static Node rearrangeList(Node n1, Node n2) {
 		Node n1NextNode = null;
 		Node n2NextNode = null;
@@ -187,6 +200,8 @@ public class List {
 		return n1;
 	}
 	
+	
+	// 9) Implement an algorithm to delete a node in the middle of a singly linked list, given only access to that node
 	public static Node deleteMiddleNode(Node n) {
 		int count = 1;
 		Node m = n;
@@ -203,6 +218,7 @@ public class List {
 		p.next = m.next;
 		return n;
 	}
+	
 	
 	public static Node partition(Node n, int x) {
 		Node newHead = new Node(-1);
@@ -230,6 +246,9 @@ public class List {
 		return newHead.next;
 	}
 	
+	
+	// 10) Write code to partition a linked list around a value x, 
+	//     such that all nodes less then x come to before, all nodes greater than or equal to x.
 	public static Node partition2(Node n, int k) {
 		Node small = new Node(-1);
 		Node smallHead = small;
@@ -251,6 +270,65 @@ public class List {
 		return smallHead.next;
 	}
 	
+	// 11) You have two numbers represented by a linked list, where each node contains a single digit, The digit are stored in reverse order
+    //     617 == 7->1->6, Write a function to adds the two numbers and returns the sum as a linked list.
+	public static Node digitsAdd(Node n1, Node n2) {
+		int c1 = 0, c2 = 0, sum = 0;
+		int m1 = 0, m2 = 0, m = 0;
+		while(n1 != null) {
+			c1 += n1.value * Math.pow(10, m1);
+			m1++;
+			n1 = n1.next;
+		}
+		
+		while(n2 != null) {
+			c2 += n2.value * Math.pow(10, m2);
+			m2++;
+			n2 = n2.next;
+		}
+		
+		sum = c1 + c2;
+		Node newHead = new Node(0);
+		Node temp = newHead;
+		while(sum != 0) {
+			m = sum % 10;
+			sum /= 10;
+			
+			Node t = new Node(m);
+			temp.next = t;
+			temp = temp.next;
+			
+		}
+		return newHead.next;
+	}
+	
+	// 12) Implement a function to check if a linked list is a palindrome
+	public static boolean isPalindrome(Node n) {
+		Node slow = n;
+		Node fast = n;
+		Stack<Node> s = new Stack<Node>();
+		//get first half items into stack
+		while(fast != null && fast.next != null) {
+			s.push(slow);
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		
+		//if the size is odd number, move forward
+		if (fast != null && fast.next == null) {
+			slow = slow.next;
+		}
+		
+		while(slow != null) {
+			if (s.pop().value == slow.value) {
+				slow = slow.next;
+			}
+			else {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 	public static void main(String[] args) {
@@ -320,8 +398,8 @@ public class List {
 //		Node n4 = rearrangeList(a1, b1);
 //		System.out.println(n4.printString(n4));
 		
-		Node n5 = deleteMiddleNode(a1);
-		System.out.println(n5.printString(n5));
+//		Node n5 = deleteMiddleNode(a1);
+//		System.out.println(n5.printString(n5));
 		
 		Node d1 = new Node(1);
 		Node d2 = new Node(3);
@@ -340,8 +418,30 @@ public class List {
 		d7.next = d8;
 		System.out.println("d: " + d1.printString(d1));
 		
-		Node n6 = partition(d1, 2);
-		System.out.println(n6.printString(n6));
+//		Node n6 = partition(d1, 2);
+//		System.out.println(n6.printString(n6));
+		
+		Node n7 = digitsAdd(a1, d1);
+		System.out.println(n7.printString(n7));
+		
+		Node e1 = new Node(1);
+		Node e2 = new Node(2);
+		e1.next = e2;
+		Node e3 = new Node(3);
+		e2.next = e3;
+		Node e4 = new Node(4);
+		e3.next = e4;
+		Node e5 = new Node(4);
+		e4.next = e5;
+		Node e6 = new Node(3);
+		e5.next = e6;
+		Node e7 = new Node(2);
+		e6.next = e7;
+		Node e8 = new Node(1);
+		e7.next = e8;
+		System.out.println("d: " + d1.printString(d1));
+		
+		System.out.println(isPalindrome(e1));
 	}
 
 }
